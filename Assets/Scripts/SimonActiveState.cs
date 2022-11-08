@@ -17,10 +17,10 @@ public class SimonActiveState : IState
     GameObject _box10;
     GameObject _box11;
     GameObject _box12;
-    float choiceDelay = 1;
+    float choiceDelay = 3;
     float _elapsedTime = 0;
     bool _timerActive = false;
-    int level = 1;
+    int level = 5;
     int levelCounter = 0;
     public SimonActiveState(Simon simon, GameObject box1, GameObject box2, GameObject box3, GameObject box4, GameObject box5, GameObject box6, GameObject box7, GameObject box8, GameObject box9, GameObject box10, GameObject box11, GameObject box12)
     {
@@ -40,26 +40,40 @@ public class SimonActiveState : IState
     }
     public void Enter()
     {
+        levelCounter = 0;
         BoxColorResetAll();
         Debug.Log("Entered into active state");
-        for (int i = 0; i < level; i++)
-        {
-            //SimonSelection();
-            BoxPick(level);
-            Debug.Log("Picking a thing here");
-        }
-        
+        _timerActive = true;
+
+
 
     }
 
     public void Exit()
     {
-        _simon.ChangeState(_simon.WaitState);
+        Debug.Log("SHould be exiting");
+        level++;
+        
     }
 
     public void FixedTick()
     {
-        
+        if ((Time.time - _elapsedTime > choiceDelay) && levelCounter < level)
+        {
+            Debug.Log("Picking a thing here");
+            BoxPick(level);
+            levelCounter++;
+            Debug.Log("Level now " + levelCounter);
+            Debug.Log("Time " + Time.time + ", elapsed time: " + _elapsedTime);
+            _elapsedTime = Time.time;
+            //_timerActive = false;
+        }
+
+        if (levelCounter == level)
+        {
+            //levelCounter++;
+            _simon.ChangeState(_simon.WaitState);
+        }
     }
 
     public void Tick()
@@ -101,17 +115,17 @@ public class SimonActiveState : IState
         if (randBox == 2)
         {
             var boxRender = _box2.GetComponent<Renderer>();
-            boxRender.material.SetColor("_Color", Color.red);
+            boxRender.material.SetColor("_Color", Color.blue);
         }
         if (randBox == 3)
         {
             var boxRender = _box3.GetComponent<Renderer>();
-            boxRender.material.SetColor("_Color", Color.red);
+            boxRender.material.SetColor("_Color", Color.yellow);
         }
         if (randBox == 4)
         {
             var boxRender = _box4.GetComponent<Renderer>();
-            boxRender.material.SetColor("_Color", Color.red);
+            boxRender.material.SetColor("_Color", Color.green);
         }
         if (randBox == 5)
         {
