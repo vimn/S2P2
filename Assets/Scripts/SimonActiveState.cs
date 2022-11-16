@@ -17,10 +17,26 @@ public class SimonActiveState : IState
     GameObject _box10;
     GameObject _box11;
     GameObject _box12;
+
+    GameObject _selection1;
+    
+    int _box1Selected = 0;
+    int _box2Selected = 0;
+    int _box3Selected = 0;
+    int _box4Selected = 0;
+    int _box5Selected = 0;
+    int _box6Selected = 0;
+    int _box7Selected = 0;
+    int _box8Selected = 0;
+    int _box9Selected = 0;
+    int _box10Selected = 0;
+    int _box11Selected = 0;
+    int _box12Selected = 0;
     float choiceDelay = 3;
     float _elapsedTime = 0;
     bool _timerActive = false;
-    int level = 5;
+    int level = 4;
+    int selectionNumber = 0;
     int levelCounter = 0;
     public SimonActiveState(Simon simon, GameObject box1, GameObject box2, GameObject box3, GameObject box4, GameObject box5, GameObject box6, GameObject box7, GameObject box8, GameObject box9, GameObject box10, GameObject box11, GameObject box12)
     {
@@ -40,13 +56,11 @@ public class SimonActiveState : IState
     }
     public void Enter()
     {
+        selectionNumber = 0;
         levelCounter = 0;
         BoxColorResetAll();
         Debug.Log("Entered into active state");
         _timerActive = true;
-
-
-
     }
 
     public void Exit()
@@ -60,9 +74,11 @@ public class SimonActiveState : IState
     {
         if ((Time.time - _elapsedTime > choiceDelay) && levelCounter < level)
         {
+            BoxColorResetAll();
             Debug.Log("Picking a thing here");
             BoxPick(level);
             levelCounter++;
+            selectionNumber++;
             Debug.Log("Level now " + levelCounter);
             Debug.Log("Time " + Time.time + ", elapsed time: " + _elapsedTime);
             _elapsedTime = Time.time;
@@ -107,25 +123,45 @@ public class SimonActiveState : IState
             randBox = Random.Range(1, 13);
             Debug.Log("Picked box: " + randBox + ", from level: " + lvl);
         }
-        if (randBox == 1)
+        if (randBox == 1 && _box1Selected == 0)
         {
             var boxRender = _box1.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box1Selected = 1;
         }
-        if (randBox == 2)
+        else if (randBox == 1 && _box1Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 2 && _box2Selected == 0)
         {
             var boxRender = _box2.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.blue);
+            _box2Selected = 1;
         }
-        if (randBox == 3)
+        else if (randBox == 2 && _box2Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 3 && _box3Selected == 0)
         {
             var boxRender = _box3.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.yellow);
+            _box3Selected = 1;
         }
-        if (randBox == 4)
+        else if (randBox == 3 && _box3Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 4 && _box4Selected == 0)
         {
             var boxRender = _box4.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.green);
+            _box4Selected = 1;
+        }
+        else if (randBox == 4 && _box4Selected == 1)
+        {
+            BoxPick(level);
         }
         if (randBox == 5)
         {
