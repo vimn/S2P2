@@ -18,6 +18,19 @@ public class SimonActiveState : IState
     GameObject _box11;
     GameObject _box12;
 
+    public Material boxLight1;
+    public Material boxLight2;
+    public Material boxLight3;
+    public Material boxLight4;
+    public Material boxLight5;
+    public Material boxLight6;
+    public Material boxLight7;
+    public Material boxLight8;
+    public Material boxLight9;
+    public Material boxLight10;
+    public Material boxLight11;
+    public Material boxLight12;
+
     GameObject _selection1;
     
     int _box1Selected = 0;
@@ -35,7 +48,7 @@ public class SimonActiveState : IState
     float choiceDelay = 3;
     float _elapsedTime = 0;
     bool _timerActive = false;
-    int level = 4;
+    int level = 12;
     int selectionNumber = 0;
     int levelCounter = 0;
     public SimonActiveState(Simon simon, GameObject box1, GameObject box2, GameObject box3, GameObject box4, GameObject box5, GameObject box6, GameObject box7, GameObject box8, GameObject box9, GameObject box10, GameObject box11, GameObject box12)
@@ -65,7 +78,8 @@ public class SimonActiveState : IState
 
     public void Exit()
     {
-        Debug.Log("SHould be exiting");
+        //Debug.Log("SHould be exiting");
+        
         level++;
         
     }
@@ -79,14 +93,16 @@ public class SimonActiveState : IState
             BoxPick(level);
             levelCounter++;
             selectionNumber++;
-            Debug.Log("Level now " + levelCounter);
-            Debug.Log("Time " + Time.time + ", elapsed time: " + _elapsedTime);
+            Debug.Log("Selection number: " + levelCounter);
+            //Debug.Log("Time " + Time.time + ", elapsed time: " + _elapsedTime);
             _elapsedTime = Time.time;
             //_timerActive = false;
         }
 
-        if (levelCounter == level)
+        if ((Time.time - _elapsedTime > choiceDelay) && (levelCounter == level))
         {
+            BoxColorResetAll();
+            Debug.Log("Clearing box color and changing states.");
             //levelCounter++;
             _simon.ChangeState(_simon.WaitState);
         }
@@ -111,17 +127,17 @@ public class SimonActiveState : IState
         if (lvl <= 4)
         {
             randBox = Random.Range(1, 5);
-            Debug.Log("Picked box: " + randBox + ", from level: " + lvl);
+            Debug.Log("Picked box: " + randBox);
         }
         if(lvl >= 5 && lvl < 9)
         {
             randBox = Random.Range(1, 9);
-            Debug.Log("Picked box: " + randBox + ", from level: " + lvl);
+            Debug.Log("Picked box: " + randBox);
         }
         if(lvl >= 9)
         {
             randBox = Random.Range(1, 13);
-            Debug.Log("Picked box: " + randBox + ", from level: " + lvl);
+            Debug.Log("Picked box: " + randBox);
         }
         if (randBox == 1 && _box1Selected == 0)
         {
@@ -163,45 +179,85 @@ public class SimonActiveState : IState
         {
             BoxPick(level);
         }
-        if (randBox == 5)
+        if (randBox == 5 && _box5Selected == 0)
         {
             var boxRender = _box5.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box5Selected = 1;
         }
-        if (randBox == 6)
+        else if (randBox == 5 && _box5Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 6 && _box6Selected == 0)
         {
             var boxRender = _box6.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box6Selected = 1;
         }
-        if (randBox == 7)
+        else if (randBox == 6 && _box6Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 7 && _box7Selected == 0)
         {
             var boxRender = _box7.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box7Selected = 1;
         }
-        if (randBox == 8)
+        else if (randBox == 7 && _box7Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 8 && _box8Selected == 0)
         {
             var boxRender = _box8.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box8Selected = 1;
         }
-        if (randBox == 9)
+        else if (randBox == 8 && _box8Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 9 && _box9Selected == 0)
         {
             var boxRender = _box9.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box9Selected = 1;
         }
-        if (randBox == 10)
+        else if (randBox == 9 && _box9Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 10 && _box10Selected == 0)
         {
             var boxRender = _box10.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box10Selected = 1;
         }
-        if (randBox == 11)
+        else if (randBox == 10 && _box10Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 11 && _box11Selected == 0)
         {
             var boxRender = _box11.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box11Selected = 1;
         }
-        if (randBox == 12)
+        else if (randBox == 11 && _box11Selected == 1)
+        {
+            BoxPick(level);
+        }
+        if (randBox == 12 && _box12Selected == 0)
         {
             var boxRender = _box12.GetComponent<Renderer>();
             boxRender.material.SetColor("_Color", Color.red);
+            _box12Selected = 1;
+        }
+        else if (randBox == 12 && _box12Selected == 1)
+        {
+            BoxPick(level);
         }
     }
     void SimonSelection()

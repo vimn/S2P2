@@ -60,7 +60,7 @@ public class SimonWaitingState : IState
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("mouse down");
+            //Debug.Log("mouse down");
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
