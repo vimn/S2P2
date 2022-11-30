@@ -41,8 +41,17 @@ public class SimonWaitingState : IState
     }
     public void Enter()
     {
+        var box1Selected = _box1.GetComponent<Selected>();
+        var box2Selected = _box2.GetComponent<Selected>();
+        var box3Selected = _box3.GetComponent<Selected>();
+        var box4Selected = _box4.GetComponent<Selected>();
+
         //change border to show it's player's turn
         Debug.Log("Entered waiting state");
+        Debug.Log("Box1: Selected: " + box1Selected.selected + " , Selection Number: " + box1Selected.selectionNumber);
+        Debug.Log("Box2: Selected: " + box2Selected.selected + " , Selection Number: " + box2Selected.selectionNumber);
+        Debug.Log("Box3: Selected: " + box3Selected.selected + " , Selection Number: " + box3Selected.selectionNumber);
+        Debug.Log("Box4: Selected: " + box4Selected.selected + " , Selection Number: " + box4Selected.selectionNumber);
 
     }
 
@@ -58,6 +67,7 @@ public class SimonWaitingState : IState
 
     public void Tick()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             //Debug.Log("mouse down");

@@ -20,11 +20,28 @@ public class Simon : StateMachineMB
     [SerializeField] GameObject box11 = null;
     [SerializeField] GameObject box12 = null;
 
+    public Material boxLight1;
+    public Material boxLight2;
+    public Material boxLight3;
+    public Material boxLight4;
+    public Material boxLight5;
+    public Material boxLight6;
+    public Material boxLight7;
+    public Material boxLight8;
+    public Material boxLight9;
+    public Material boxLight10;
+    public Material boxLight11;
+    public Material boxLight12;
+    public Material baseMat;
+
+
+    public int testInt = 0;
+
 
     private void Awake()
     {
         ActiveState = new SimonActiveState(this, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12);
-        WaitState = new SimonWaitingState();
+        WaitState = new SimonWaitingState(this, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12);
     }
 
     private void Start()
@@ -37,6 +54,8 @@ public class Simon : StateMachineMB
     {
 
     }
+
+    
     IEnumerator SimonSelection()
     {
         BoxColor(box1);
