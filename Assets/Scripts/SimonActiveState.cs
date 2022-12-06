@@ -63,7 +63,6 @@ public class SimonActiveState : IState
         selectionNumber = 0;
         levelCounter = 0;
         BoxColorResetAll();
-        Debug.Log("Entered into active state");
         _box1Selected = 0;
         _box2Selected = 0;
         _box3Selected = 0;
@@ -88,7 +87,6 @@ public class SimonActiveState : IState
         if ((Time.time - _elapsedTime > choiceDelay) && levelCounter < _simon.level)
         {
             BoxColorResetAll();
-            Debug.Log("Picking a thing here");
             
             levelCounter++;
             selectionNumber++;
@@ -141,8 +139,6 @@ public class SimonActiveState : IState
                 BoxPick(_simon.level);
             }
 
-            Debug.Log("Selection number: " + levelCounter);
-            Debug.Log("level number: " + _simon.level);
             
             _elapsedTime = Time.time;
             
@@ -151,8 +147,6 @@ public class SimonActiveState : IState
         if ((Time.time - _elapsedTime > choiceDelay) && (levelCounter == _simon.level))
         {
             BoxColorResetAll();
-            Debug.Log("Clearing box color and changing states.");
-            //levelCounter++;
             _simon.ChangeState(_simon.WaitState);
         }
     }
@@ -174,17 +168,14 @@ public class SimonActiveState : IState
         if (lvl <= 4)
         {
             randBox = Random.Range(1, 5);
-            Debug.Log("Picked box: " + randBox);
         }
         if(lvl >= 5 && lvl < 9)
         {
             randBox = Random.Range(1, 9);
-            Debug.Log("Picked box: " + randBox);
         }
         if(lvl >= 9)
         {
             randBox = Random.Range(1, 13);
-            Debug.Log("Picked box: " + randBox);
         }
         if (randBox == 1 && _box1Selected == 0)
         {
