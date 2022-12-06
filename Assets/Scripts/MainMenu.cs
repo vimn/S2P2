@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] AudioClip _menuMusic;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        AudioHelper.PlayClip2D(_menuMusic, 1f);   
     }
 
     // Update is called once per frame

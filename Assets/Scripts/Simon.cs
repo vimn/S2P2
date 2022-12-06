@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 public class Simon : StateMachineMB
@@ -20,6 +21,29 @@ public class Simon : StateMachineMB
     [SerializeField] GameObject box11 = null;
     [SerializeField] GameObject box12 = null;
 
+    [SerializeField] TextMeshProUGUI accuracy;
+
+    [SerializeField] AudioClip _Music;
+    public AudioClip _boxSound1;
+    public AudioClip _boxSound2;
+    public AudioClip _boxSound3;
+    public AudioClip _boxSound4;
+    public AudioClip _boxSound5;
+    public AudioClip _boxSound6;
+    public AudioClip _boxSound7;
+    public AudioClip _boxSound8;
+    public AudioClip _boxSound9;
+    public AudioClip _boxSound10;
+    public AudioClip _boxSound11;
+    public AudioClip _boxSound12;
+    public AudioClip _loseSound;
+    public AudioClip _winSound;
+
+    public GameObject simonTurn;
+    public GameObject playerTurn;
+    public GameObject playerText;
+    public GameObject simonText;
+
     public Material boxLight1;
     public Material boxLight2;
     public Material boxLight3;
@@ -34,7 +58,9 @@ public class Simon : StateMachineMB
     public Material boxLight12;
     public Material baseMat;
 
-
+    public int level;
+    public float correct = 0;
+    public float total = 0;
     public int testInt = 0;
 
 
@@ -42,12 +68,22 @@ public class Simon : StateMachineMB
     {
         ActiveState = new SimonActiveState(this, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12);
         WaitState = new SimonWaitingState(this, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12);
+        AudioHelper.PlayClip2D(_Music, 1f);
     }
 
     private void Start()
     {
 
         ChangeState(ActiveState);
+    }
+
+    private void LateUpdate()
+    {
+        if (total > 0)
+        {
+            float playerAccuracy = (correct / total) * 100f;
+            accuracy.text = "Accuracy: " + playerAccuracy.ToString("0.00") + "%";
+        }
     }
 
     public void ClearColors()
